@@ -8,9 +8,13 @@
                 <span class='icon-bar'></span>
             </button>
             <a class='navbar-brand' [routerLink]="['/home']">msal_netcore_angular</a>
+            <div *ngIf="!isOnline; else profileBlock">
+                <p>Please login</p>
+                <button (click)="login()" class="btn btn-danger navbar-btn login-btn">Sign In</button>
+            </div>
         </div>
         <div class='clearfix'></div>
-        <div class='navbar-collapse collapse'>
+        <div *ngIf="isOnline" class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
@@ -31,3 +35,8 @@
         </div>
     </div>
 </div>
+
+<ng-template #profileBlock>
+    <p>Hello, {{user}}</p>
+    <button (click)="logout()" class="btn btn-danger navbar-btn login-btn">Logout</button>
+</ng-template>

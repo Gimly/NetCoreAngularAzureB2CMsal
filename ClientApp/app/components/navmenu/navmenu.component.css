@@ -37,6 +37,9 @@ li.link-active a:focus {
         border-top: 1px solid #444;
         padding: 0px;
     }
+    .navbar p {
+        color: white;
+    }
     .navbar ul {
         float: none;
     }
