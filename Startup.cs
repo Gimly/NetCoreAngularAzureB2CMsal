@@ -21,7 +21,11 @@ namespace msal_netcore_angular
         {
             services.AddMvc();
 
-            StartupAuth.ConfigureServices(services, Configuration, Environment);
+            this.AddAzureB2CAuthentication(services,
+                                           Configuration["Jwt:Policy"],
+                                           Configuration["Jwt:Tenant"],
+                                           Configuration["Jwt:Audience"],
+                                           Environment.IsDevelopment());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
