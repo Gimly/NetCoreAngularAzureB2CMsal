@@ -23,11 +23,12 @@ export const environment = {
   webApi: 'https://fabrikamb2chello.azurewebsites.net/hello' // URL of a web api
 };
 ```
-You'll also need to change the .Net Core API side's by changing the `JWT` property in the `appsettings.json` file.
+You'll also need to change the .Net Core API side's by changing the `JWT` property in the `appsettings.json` file.  As an alternative, you can right click the project and select `Manage User Secrets`.  This prevent you from commiting your tenant configuration to Git unless so desired.
 ```json
 "Jwt": {
-  "Authority": "https://login.microsoftonline.com/tfp/fabrikamb2c.onmicrosoft.com/b2c_1_susi",
-  "Audience": "25eef6e4-c905-4a07-8eb4-0d08d5df8b3f"
+    "Audience": "25eef6e4-c905-4a07-8eb4-0d08d5df8b3f",
+    "Policy": "b2c_1_susi",
+    "Tenant": "fabrikamb2c"
 }
 
 ```
