@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,31 +21,7 @@ namespace msal_netcore_angular
         {
             services.AddMvc();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
-            {
-                o.Authority = Configuration["Jwt:Authority"];
-                o.Audience = Configuration["Jwt:Audience"];
-                o.RequireHttpsMetadata = false; //TODO remove this in production
-                o.Events = new JwtBearerEvents()
-                {
-                    OnAuthenticationFailed = c =>
-                    {
-                        c.NoResult();
-
-                        c.Response.StatusCode = 500;
-                        c.Response.ContentType = "text/plain";
-                        if (Environment.IsDevelopment())
-                        {
-                            return c.Response.WriteAsync(c.Exception.ToString());
-                        }
-                        return c.Response.WriteAsync("An error occured processing your authentication.");
-                    }
-                };
-            });
+            StartupAuth.ConfigureServices(services, Configuration, Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +41,8 @@ namespace msal_netcore_angular
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseAuthentication();
 
             app.UseStaticFiles();
 
