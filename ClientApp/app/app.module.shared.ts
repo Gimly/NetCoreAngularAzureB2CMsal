@@ -25,7 +25,7 @@ import { AuthenticationHttpInterceptor } from './interceptors/authentication.htt
         HttpClientModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: '', component: HomeComponent },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
