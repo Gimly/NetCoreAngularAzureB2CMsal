@@ -23,8 +23,7 @@ namespace msal_netcore_angular
 
             services.AddAzureB2CAuthentication(Configuration["Jwt:Policy"],
                                                Configuration["Jwt:Tenant"],
-                                               Configuration["Jwt:Audience"],
-                                               Environment.IsDevelopment());
+                                               Configuration["Jwt:Audience"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,7 +31,7 @@ namespace msal_netcore_angular
         {
             Environment = env;
 
-            if (env.IsDevelopment())
+            if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
