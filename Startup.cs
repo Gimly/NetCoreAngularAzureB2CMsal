@@ -8,9 +8,10 @@ namespace msal_netcore_angular
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -23,14 +24,13 @@ namespace msal_netcore_angular
 
             services.AddAzureB2CAuthentication(Configuration["Jwt:Policy"],
                                                Configuration["Jwt:Tenant"],
-                                               Configuration["Jwt:Audience"]);
+                                               Configuration["Jwt:Audience"],
+                                               Environment.IsDevelopment());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            Environment = env;
-
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
