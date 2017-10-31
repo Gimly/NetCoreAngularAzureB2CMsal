@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import 'msal';
+import * as Msal from 'msal';
 
 import { environment } from '../environments/environment';
+import { User } from "msal/lib-commonjs/User";
 
 @Injectable()
 export class AuthenticationService {
@@ -32,7 +33,7 @@ export class AuthenticationService {
         return this.clientApplication.getUser() != null;
     }
 
-    public getUser(): Msal.User {
+    public getUser(): User {
         return this.clientApplication.getUser();
     }
 
